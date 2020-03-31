@@ -22,7 +22,7 @@ class Header extends Component {
         <nav>
           <div className="nav-wrapper">
             <Link
-              to={this.props.auth ? '/dashboard' : '/'}
+              to={this.props.auth ? '/landing' : '/'}
               className="left-brand-logo"
             >
               Emaily

@@ -12,7 +12,7 @@ module.exports = app => {
     '/auth/google/callback',
     passport.authenticate ('google'),
     (req, res) => {
-      res.redirect ('/dashboard');
+      res.redirect ('/landing');
     }
   );
   app.get ('/api/current_user', (req, res) => {
