@@ -5,6 +5,9 @@ const mongoose = require ('mongoose');
 const keys = require ('./config/keys');
 const bodyParser = require ('body-parser');
 
+
+
+
 require ('./models/User');
 require ('./models/ElderlyRequest');
 require ('./models/EmployeeRequest');
@@ -28,6 +31,7 @@ require ('./routes/authRoutes') (app);
 require ('./routes/elderlyRoutes') (app);
 require ('./routes/employeeRoutes') (app);
 require ('./routes/offerRoutes') (app);
+require ('./routes/emailRoutes') (app);
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -59,3 +63,8 @@ app.listen (PORT);
 
 //id: 964933078698-a9d2g4e17ns8o34rm0eavd8f0qqdubpi.apps.googleusercontent.com
 //secret : 2YcqyEOjbWliUYUwM9YT6X_G
+
+
+
+
+//#a123456

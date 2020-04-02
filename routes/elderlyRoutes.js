@@ -8,32 +8,32 @@ module.exports = app => {
     const request = await new Requet ({
       text: req.body.text,
       location: req.body.location,
+      name: req.body.name,
+      date: req.body.date,
+      emails: req.body.emails,
     }).save ();
+    res.send(request)
   });
   app.get ('/api/getElderlyRequests', requireLogin, async (req, res) => {
     Requet.find ({}, function (err, reqs) {
-      var map = {};
+      var map = [];
 
       reqs.forEach (function (request) {
-        map[request._id] = request;
+        map.push (request);
       });
       res.send (map);
     });
   });
   app.post ('/api/filterElderlyRequests', requireLogin, async (req, res) => {
-        Requet.find ({}, function (err, reqs) {
-                var map = {};
-          
-                reqs.forEach (function (request) {
-                        console.log(request.location+"  "+req.body.location)
-                  if(request.location===req.body.location)
-                  map[request._id] = request;
-                });
-                console.log(map)
-                res.send (map);
-              });
-       // const requests = await Requet.findOne({"location":"test"});
-        //res.send(requests)
+    Requet.find ({}, function (err, reqs) {
+      var map = [];
 
+      reqs.forEach (function (request) {
+        if (request.location === req.body.location) map.push(request);
+      });
+      res.send (map);
+    });
+    // const requests = await Requet.findOne({"location":"test"});
+    //res.send(requests)
   });
 };

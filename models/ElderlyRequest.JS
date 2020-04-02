@@ -3,7 +3,14 @@ const {Schema} = mongoose;
 
 const eldReq = new Schema ({
   text: String,
-  location:String,
+  name: String,
+  location: String,
+  date: Date,
+  emails: [
+    {
+      type: String,
+    },
+  ],
 });
 
 //mongoose.model(<name whcih we want to use>,<the name of the create schema>)

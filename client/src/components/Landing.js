@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 import axios from 'axios';
-
+import Card from './Card'
 class Landing extends Component {
   async eldAdd () {
     const res = await axios.post ('/api/elderlyRequest', {
@@ -61,15 +61,12 @@ class Landing extends Component {
 
   render () {
     return (
-      <div style={{textAlign: 'center'}}>
-        <h1>
-          Emaily!
-        </h1>
+      <div >
+
         <button onClick={() => this.offerAdd ()}>Test</button>
         <button onClick={() => this.offerGet ()}>Test2</button>
         <button onClick={() => this.offerFilter ()}>Test3</button>
-
-        collect feedback from your users
+        <Card />
       </div>
     );
   }
