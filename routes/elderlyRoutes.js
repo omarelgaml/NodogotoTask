@@ -5,6 +5,7 @@ const Requet = mongoose.model ('ElderlyRequests');
 
 module.exports = app => {
   app.post ('/api/elderlyRequest', requireLogin, async (req, res) => {
+    console.log(req.body.name)
     const request = await new Requet ({
       text: req.body.text,
       location: req.body.location,

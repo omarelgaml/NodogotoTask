@@ -27,7 +27,6 @@ class ElderlyHelp extends Component {
     });
 
     if (this.state.filter === null) {
-      console.log ('hii');
 
       const res = await axios.get ('/api/getElderlyRequests');
       this.setState ({
@@ -44,6 +43,7 @@ class ElderlyHelp extends Component {
     }
   }
   async submitPost () {
+    console.log(this.props.auth.name)
     const elem = document.getElementById ('select');
     const loc = elem.options[elem.selectedIndex].value;
     const t = document.getElementById ('textarea1').value;
