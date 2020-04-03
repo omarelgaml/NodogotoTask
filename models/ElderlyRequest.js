@@ -11,6 +11,7 @@ const eldReq = new Schema ({
       type: String,
     },
   ],
+  userID: String,
 });
 
 //mongoose.model(<name whcih we want to use>,<the name of the create schema>)
