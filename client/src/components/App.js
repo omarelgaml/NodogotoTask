@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import * as actions from '../actions';
 import Header from './Header';
 import Landing from './Landing';
-import Elderly from './ElderlyHelp';
+import Help from './Help';
 import WishList from './WishList';
 import '../App.css';
 
@@ -19,14 +19,10 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            <Route
-              exact
-              path="/"
-              component={Landing}
-            />
-            <Route exact path="/elderly" component={Elderly} />
-            <Route exact path="/offers" component={Elderly} />
-            <Route exact path="/employee" component={Elderly} />
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/elderly" component={Help} />
+            <Route exact path="/offers" component={Help} />
+            <Route exact path="/employee" component={Help} />
             <Route exact path="/wishList" component={WishList} />
 
           </div>

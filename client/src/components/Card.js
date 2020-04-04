@@ -31,7 +31,9 @@ class Card extends Component {
           <div className="card black">
             <div className="card-content white-text">
               <span className="card-title">
-                {this.props.name}, {this.props.location}
+                {this.props.wish
+                  ? ''
+                  : this.props.name + ',' + this.props.location}
               </span>
               <p>{this.props.text}</p>
             </div>
@@ -43,20 +45,11 @@ class Card extends Component {
                   >
                     Delete
                   </Button>
-                : <a className="right" onClick={this.props.sendEmail}>
-                    Contcat
-                  </a>}
+                : <Button className="right" onClick={this.props.sendEmail}>
+                    contact
+                  </Button>}
               <a className="left">
-                {
-                  new Date (this.props.date).getDay ()
-                  +
-                  '/'
-                  +
-                  parseInt (
-                  new Date (this.props.date).getMonth ()) +
-                  1 +
-                  '/' +
-                  new Date (this.props.date).getFullYear ()}
+                {this.props.date}
               </a>
 
             </div>

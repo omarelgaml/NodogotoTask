@@ -8,7 +8,8 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import {confirmAlert} from 'react-confirm-alert'; // Import
 import 'react-confirm-alert/src/react-confirm-alert.css';
-class ElderlyHelp extends Component {
+
+class Help extends Component {
   constructor (props) {
     super (props);
     this.state = {
@@ -90,6 +91,8 @@ class ElderlyHelp extends Component {
     const location = elem.options[elem.selectedIndex].value;
     const text = document.getElementById ('textarea1').value;
     const date = new Date ();
+   //const date =new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(Date.now);
+   // console.log(new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(date));
     const res = await axios.post (route, {
       location: location,
       text: text,
@@ -185,4 +188,4 @@ function mapStateToProps (state) {
   return {auth: state.auth};
 }
 
-export default connect (mapStateToProps) (ElderlyHelp);
+export default connect (mapStateToProps) (Help);

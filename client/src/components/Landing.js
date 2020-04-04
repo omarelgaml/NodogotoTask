@@ -9,6 +9,9 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Rodal from 'rodal';
 import {NotificationContainer,NotificationManager} from 'react-notifications';
+import image1 from '../image1.jpg'
+import image2 from '../image222.jpg'
+import * as actions from '../actions';
 
 class Landing extends Component {
   constructor (props) {
@@ -34,6 +37,7 @@ class Landing extends Component {
         type: this.state.value,
       });
       console.log (user);
+      this.props.fetchUser ();
       this.hide ();
     }
   }
@@ -117,7 +121,7 @@ class Landing extends Component {
           >
             <Slide
               image={
-                <img alt="" src="http://lorempixel.com/780/580/nature/1" />
+                <img alt="img" src={image1} />
               }
             >
               <Caption placement="center">
@@ -131,7 +135,7 @@ class Landing extends Component {
             </Slide>
             <Slide
               image={
-                <img alt="" src="http://lorempixel.com/780/580/nature/2" />
+                <img alt="img" src={image2} />
               }
             >
               <Caption placement="left">
@@ -145,7 +149,7 @@ class Landing extends Component {
             </Slide>
             <Slide
               image={
-                <img alt="" src="https://lorempixel.com/580/250/nature/4" />
+                <img alt="img" src="https://lorempixel.com/580/250/nature/4" />
               }
             >
               <Caption placement="right">
@@ -153,13 +157,13 @@ class Landing extends Component {
                   Be a volunteer.
                 </h3>
                 <h5 className="light grey-text text-lighten-3">
-                  Offer help and see peopl's requests to help them.
+                  Offer help and see people's requests to help them.
                 </h5>
               </Caption>
             </Slide>
             <Slide
               image={
-                <img alt="" /*src="https://lorempixel.com/580/250/nature/4" */ />
+                <img alt="img" /*src="https://lorempixel.com/580/250/nature/4" */ />
               }
             >
               <Caption placement="center">
@@ -182,4 +186,4 @@ function mapStateToProps (state) {
   return {auth: state.auth};
 }
 
-export default connect (mapStateToProps) (Landing);
+export default connect (mapStateToProps,actions) (Landing);

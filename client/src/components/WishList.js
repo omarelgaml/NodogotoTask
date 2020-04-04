@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../App.css';
 import {connect} from 'react-redux';
 import Card from './Card';
+import {Button} from 'react-materialize';
 
 class WishList extends Component {
     
@@ -69,7 +70,7 @@ class WishList extends Component {
   }
   render () {
     return (
-      <div>
+      <div style={{marginTop: '100px'}}>
 
         <form>
 
@@ -83,15 +84,15 @@ class WishList extends Component {
 
         </form>
 
-        <button
-          className="btn right waves-effect waves-light red custom-btn"
+        <Button
+          className="right custom-btn"
           type="submit"
           name="action"
           onClick={() => this.submit ()}
         >
           Submit
           <i className="material-icons right">send</i>
-        </button>
+        </Button>
 
         {this.renderPosts ()}
       </div>

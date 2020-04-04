@@ -16,11 +16,10 @@ class Request extends Component {
       writerID: null,
       userEmail: null,
       userName: null,
-      permission:this.props.permission()
+      permission: this.props.permission (),
     };
   }
   componentDidMount () {
-    
     const options = {
       inDuration: 250,
       outDuration: 200,
@@ -40,6 +39,7 @@ class Request extends Component {
     this.props.posts.sort (function (a, b) {
       return new Date (b.date) - new Date (a.date);
     });
+    this.props.posts.map(item=>console.log(item.date))
     return (
       <div>
         {this.props.posts.map ((item, i) => (
@@ -89,7 +89,7 @@ class Request extends Component {
   }
   //{() => axios.post ('/api/sendEmail', {post: item.text})}
   render () {
-    console.log(this.state.permission)
+    console.log (this.state.permission);
     return (
       <div>
         {this.state.permission &&
@@ -97,7 +97,11 @@ class Request extends Component {
 
             <div className="row" style={{marginTop: '100px'}}>
               <div className="input-field col s8 offset-s1">
-                <textarea id="textarea1" className="materialize-textarea " />
+                <textarea
+                  id="textarea1"
+                  maxlength="120"
+                  className="materialize-textarea "
+                />
                 <label>New Post</label>
               </div>
               <div className="col s3 test">
