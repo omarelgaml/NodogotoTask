@@ -6,7 +6,6 @@ import Header from './Header';
 import Landing from './Landing';
 import Elderly from './ElderlyHelp';
 import WishList from './WishList';
-import Home from './Home';
 import '../App.css';
 
 class App extends Component {
@@ -25,7 +24,6 @@ class App extends Component {
               path="/"
               component={Landing}
             />
-            <Route exact path="/home" component={Home} />
             <Route exact path="/elderly" component={Elderly} />
             <Route exact path="/offers" component={Elderly} />
             <Route exact path="/employee" component={Elderly} />

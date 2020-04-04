@@ -38,7 +38,7 @@ class Header extends Component {
             <Link to={'/'} className="brand-logo">
               Quarantine Buddy
             </Link>
-            <a href="#" data-target="mobile-demo" className="sidenav-trigger">
+            <a  data-target="mobile-demo" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
             <ul className="right hide-on-med-and-down">

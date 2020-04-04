@@ -8,18 +8,49 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Rodal from 'rodal';
-import {NotificationContainer} from 'react-notifications';
+import {NotificationContainer,NotificationManager} from 'react-notifications';
 
 class Landing extends Component {
   constructor (props) {
     super (props);
     this.state = {
       value: null,
-      open: false,
+      open: true,
     };
   }
 
+  handleChange = event => {
+    console.log (event.target.value);
+    this.setState ({
+      value: event.target.value,
+    });
+  };
+  async updateUser () {
+    if (!this.state.value) {
+      NotificationManager.error ('Please select a type', 'Error', 2500);
+    } else {
+      const user = await axios.put ('/api/updateUser', {
+        user: this.props.auth,
+        type: this.state.value,
+      });
+      console.log (user);
+      this.hide ();
+    }
+  }
+  hide () {
+    this.setState ({
+      open: false,
+    });
+  }
+  errorHide () {
+    NotificationManager.error (
+      'Please select a type and click send',
+      'Error',
+      2500
+    );
+  }
   render () {
+    if (this.props.auth) console.log (this.props.auth.type);
     return (
       <div>
         {this.props.auth &&
@@ -114,7 +145,7 @@ class Landing extends Component {
             </Slide>
             <Slide
               image={
-                <img alt="" src="https://lorempixel.com/580/250/nature/4"  />
+                <img alt="" src="https://lorempixel.com/580/250/nature/4" />
               }
             >
               <Caption placement="right">
