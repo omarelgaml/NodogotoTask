@@ -70,7 +70,7 @@ class WishList extends Component {
   }
   render () {
     return (
-      <div style={{marginTop: '100px'}}>
+      <div className="new-post">
 
         <form>
 

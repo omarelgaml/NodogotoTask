@@ -20,15 +20,7 @@ class Request extends Component {
     };
   }
   componentDidMount () {
-    const options = {
-      inDuration: 250,
-      outDuration: 200,
-      draggable: true,
-    };
-    document.addEventListener ('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll ('select');
-      // var instances = M.FormSelect.init (elems, options);
-    });
+    document.addEventListener ('DOMContentLoaded', function () {});
   }
 
   renderPosts () {
@@ -39,7 +31,7 @@ class Request extends Component {
     this.props.posts.sort (function (a, b) {
       return new Date (b.date) - new Date (a.date);
     });
-    this.props.posts.map(item=>console.log(item.date))
+    this.props.posts.map (item => console.log (item.date));
     return (
       <div>
         {this.props.posts.map ((item, i) => (
@@ -94,7 +86,7 @@ class Request extends Component {
         {this.state.permission &&
           <form>
 
-            <div className="row" style={{marginTop: '100px'}}>
+            <div className="row new-post">
               <div className="input-field col s8 offset-s1">
                 <textarea
                   id="textarea1"
@@ -125,7 +117,7 @@ class Request extends Component {
           </Button>}
         <div>
 
-          <div className="row" style={{marginTop: '120px'}}>
+          <div className="row your-posts">
             <div className="col s3 offset-s1  ">
               {this.state.permission &&
                 <Button
@@ -160,7 +152,7 @@ class Request extends Component {
           onClose={() => this.hide ()}
         >
           <div>
-            <div className="input-field" style={{marginTop: '75px'}}>
+            <div className="input-field send-mail">
 
               <textarea id="textarea2" className="materialize-textarea " />
               <label>Send Mail</label>

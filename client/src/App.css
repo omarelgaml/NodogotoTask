@@ -15,14 +15,31 @@ body {
     margin-right: 75px;
     margin-bottom: 75px;
 
-
+}
+.type{
+    margin-top: 10px;
 }
 
+.send-type{
+    right: 0;
+    margin-top: 100%;
+}
+.new-post{
+    margin-top: 100px;
+}
+.your-posts{
+    margin-top: 120px;
+}
+.send-mail{
+    margin-top: 75px;
+}
 .landing{
     margin-top: 125px;
 }
 
-
+.header{
+  padding: 0px 5px;
+}
 
 .select{
     margin-top: 100px;

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import '../App.css';
-import M from 'materialize-css';
 import {connect} from 'react-redux';
 import Request from './Request';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
@@ -53,23 +52,16 @@ class Help extends Component {
   };
   async componentDidMount () {
     const page = window.location.pathname.split ('/');
-    const options = {
-      inDuration: 250,
-      outDuration: 200,
-      draggable: true,
-    };
-    document.addEventListener ('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll ('select');
-      var instances = M.FormSelect.init (elems, options);
-    });
+    document.addEventListener ('DOMContentLoaded', function () {});
+    var route;
     if (page[page.length - 1] === 'elderly') {
-      var route = '/api/getElderlyRequests';
+      route = '/api/getElderlyRequests';
     }
     if (page[page.length - 1] === 'offers') {
-      var route = '/api/getOfferRequests';
+      route = '/api/getOfferRequests';
     }
     if (page[page.length - 1] === 'employee') {
-      var route = '/api/getEmployeeRequests';
+      route = '/api/getEmployeeRequests';
     }
     const res = await axios.get (route);
     this.setState ({
@@ -78,21 +70,20 @@ class Help extends Component {
     });
   }
   async submitPost (name) {
+    var route;
     if (this.state.currentPage === 'elderly') {
-      var route = '/api/elderlyRequest';
+      route = '/api/elderlyRequest';
     }
     if (this.state.currentPage === 'offers') {
-      var route = '/api/offerRequest';
+      route = '/api/offerRequest';
     }
     if (this.state.currentPage === 'employee') {
-      var route = '/api/employeeRequest';
+      route = '/api/employeeRequest';
     }
     const elem = document.getElementById ('select');
     const location = elem.options[elem.selectedIndex].value;
     const text = document.getElementById ('textarea1').value;
     const date = new Date ();
-   //const date =new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(Date.now);
-   // console.log(new Intl.DateTimeFormat('en-US', {year: 'numeric', month: '2-digit',day: '2-digit'}).format(date));
     const res = await axios.post (route, {
       location: location,
       text: text,
@@ -108,14 +99,15 @@ class Help extends Component {
   }
 
   async filterPosts () {
+    var route;
     if (this.state.currentPage === 'elderly') {
-      var route = '/api/filterElderlyRequests';
+      route = '/api/filterElderlyRequests';
     }
     if (this.state.currentPage === 'offers') {
-      var route = '/api/filterOfferRequests';
+      route = '/api/filterOfferRequests';
     }
     if (this.state.currentPage === 'employee') {
-      var route = '/api/filterEmployeeRequests';
+      route = '/api/filterEmployeeRequests';
     }
     const elem = document.getElementById ('filter');
     const location = elem.options[elem.selectedIndex].value;
@@ -128,14 +120,15 @@ class Help extends Component {
   }
 
   async yourPosts () {
+    var route;
     if (this.state.currentPage === 'elderly') {
-      var route = '/api/elderlyUser';
+      route = '/api/elderlyUser';
     }
     if (this.state.currentPage === 'offers') {
-      var route = '/api/offerUser';
+      route = '/api/offerUser';
     }
     if (this.state.currentPage === 'employee') {
-      var route = '/api/employeeUser';
+      route = '/api/employeeUser';
     }
     const posts = await axios.post (route, {
       id: this.props.auth._id,

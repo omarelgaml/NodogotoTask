@@ -1,19 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import M from 'materialize-css';
 
 class Header extends Component {
   componentDidMount () {
-    const options = {
-      inDuration: 250,
-      outDuration: 200,
-      draggable: true,
-    };
-    document.addEventListener ('DOMContentLoaded', function () {
-      var elems = document.querySelectorAll ('.sidenav');
-      var instances = M.Sidenav.init (elems, options);
-    });
+    document.addEventListener ('DOMContentLoaded', function () {});
   }
   renderContect () {
     switch (this.props.auth) {
@@ -33,19 +24,18 @@ class Header extends Component {
     return (
       <div>
 
-        <nav className="black" style={{padding: '0px 5px'}}>
+        <nav className="black header">
           <div className="nav-wrapper">
             <Link to={'/'} className="brand-logo">
               Quarantine Buddy
             </Link>
-            <a  data-target="mobile-demo" className="sidenav-trigger">
+            <a data-target="mobile-demo" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
             <ul className="right hide-on-med-and-down">
-                {this.renderContect ()}
-              </ul>
+              {this.renderContect ()}
+            </ul>
             <ul className="right hide-on-med-and-down">
-
 
               {this.props.auth &&
                 <div>

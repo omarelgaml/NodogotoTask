@@ -7,17 +7,18 @@ import '../App.css';
 class Card extends Component {
   async deletePost (post) {
     const page = window.location.pathname.split ('/');
+    var route;
     if (page[page.length - 1] === 'elderly') {
-      var route = '/api/deletePost';
+      route = '/api/deletePost';
     }
     if (page[page.length - 1] === 'offers') {
-      var route = '/api/deleteOfferPost';
+      route = '/api/deleteOfferPost';
     }
     if (page[page.length - 1] === 'employee') {
-      var route = '/api/deleteEmployeePost';
+      route = '/api/deleteEmployeePost';
     }
     if (page[page.length - 1] === 'wishlist') {
-      var route = '/api/deleteWish';
+      route = '/api/deleteWish';
     }
     const data = {data: {id: post}};
     const res = await axios.delete (route, data);

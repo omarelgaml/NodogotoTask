@@ -27,7 +27,7 @@ module.exports = app => {
         '\n' +
         req.body.userName +
         "'s email is : " +
-        req.body.email,
+        req.body.userEmail,
     };
 
     transporter.sendMail (mailOptions, function (error, info) {

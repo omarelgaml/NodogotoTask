@@ -11,6 +11,7 @@ import Rodal from 'rodal';
 import {NotificationContainer,NotificationManager} from 'react-notifications';
 import image1 from '../image1.jpg'
 import image2 from '../image222.jpg'
+
 import * as actions from '../actions';
 
 class Landing extends Component {
@@ -66,7 +67,7 @@ class Landing extends Component {
             visible={this.state.open}
             onClose={() => this.errorHide ()}
           >
-            <div style={{marginTop: '10px'}}>
+            <div className="type">
 
               <FormControl component="fieldset">
                 <FormLabel component="legend">User type</FormLabel>
@@ -98,9 +99,8 @@ class Landing extends Component {
             </div>
             <div>
               <a
-                style={({marginTop: '100%'}, {right: '0'})}
                 onClick={() => this.updateUser ()}
-                class="waves-effect waves-light btn right"
+                class="waves-effect waves-light btn right send-type"
               >
                 Send
               </a>
