@@ -63,7 +63,7 @@ class Landing extends Component {
     return (
       <div >
 
-        <button onClick={() => this.offerAdd ()}>Test</button>
+        <button onClick={() => this.empGet ()}>Test</button>
         <button onClick={() => this.offerGet ()}>Test2</button>
         <button onClick={() => this.offerFilter ()}>Test3</button>
         <Card />

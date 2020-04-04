@@ -5,11 +5,13 @@ import * as actions from '../actions';
 import Header from './Header';
 import Landing from './Landing';
 import Elderly from './ElderlyHelp';
-const dashboard = () => <h2>dashboard</h2>;
+import WishList from './WishList';
+
 class App extends Component {
   componentDidMount () {
     this.props.fetchUser ();
   }
+
   render () {
     return (
       <div className="container">
@@ -17,8 +19,12 @@ class App extends Component {
           <div>
             <Header />
             <Route exact path="/" component={Landing} />
-            <Route exact path="/landing" component={Landing} />
             <Route exact path="/elderly" component={Elderly} />
+            <Route exact path="/offers" component={Elderly} />
+            <Route exact path="/employee" component={Elderly} />
+            <Route exact path="/wishList" component={WishList} />
+
+
 
 
           </div>

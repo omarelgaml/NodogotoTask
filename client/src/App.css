@@ -5,18 +5,31 @@
 
 .custom-btn{
     margin-top: -20px;
-    margin-right: 90px;
+    margin-right: 75px;
     margin-bottom: 75px;
 
 
 }
 
-
+.select{
+    margin-top: 100px;
+}
+#filter-btn{
+    margin-top: 35px;
+    background-color: red;
+}
 @media (max-width:700px){
     .custom-btn{
         margin-top: -20px;
         margin-bottom: 50px;
-        margin-right: 25px;
+        margin-right: 15px;
     
+    }
+    #filter-btn{
+        height: 30px;
+    }
+
+    .test{
+        width: 100%;
     }
 }

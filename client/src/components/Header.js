@@ -28,14 +28,17 @@ class Header extends Component {
         return [<li key="2"><a href="/api/logout">Logout</a></li>];
     }
   }
+  saveID(){
+    localStorage.setItem("id", this.props.auth._id);
+  }
   render () {
     return (
       <div>
 
-        <nav  style={{padding:"0px 5px"},{marginBottom:"50px"}}>
+        <nav  style={{padding:"0px 5px"}}>
           <div className="nav-wrapper">
             <Link
-              to={this.props.auth ? '/landing' : '/'}
+              to={'/'}
               className="brand-logo"
             >
               Quarantine Buddy
@@ -49,9 +52,9 @@ class Header extends Component {
             </ul>
             <ul className="right hide-on-med-and-down">
               <li><Link to='/elderly'>Elderly help</Link></li>
-              <li><a href="badges.html">Employees help</a></li>
-              <li><a href="mobile.html">Offering help</a></li>
-              <li><a href="collapsible.html">Wishlist</a></li>
+              <li><a href="/employee">Employees help</a></li>
+              <li><a href="/offers">Offering help</a></li>
+              <li><a onClick={()=>this.saveID()} href="/wishlist">Wishlist</a></li>
             </ul>
 
           </div>
@@ -59,9 +62,9 @@ class Header extends Component {
 
         <ul className="sidenav" id="mobile-demo">
           <li><Link to='/elderly'>Elderly help</Link></li>
-          <li><a href="badges.html">Employees help</a></li>
-          <li><a href="mobile.html">Offering help</a></li>
-          <li><a href="collapsible.html">Wishlist</a></li>
+          <li><a href="/employee">Employees help</a></li>
+          <li><a href="/offers">Offering help</a></li>
+          <li><a href="/wishlist">Wishlist</a></li>
         </ul>
       </div>
     );

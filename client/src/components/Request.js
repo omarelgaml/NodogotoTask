@@ -1,10 +1,23 @@
 import React, {Component} from 'react';
 import Card from './Card';
 import axios from 'axios';
-import M from 'materialize-css';
+import Rodal from 'rodal';
+import 'rodal/lib/rodal.css';
 import {connect} from 'react-redux';
+import 'materialize-css';
+import Select from './Select';
+import {Button} from 'react-materialize';
 
 class Request extends Component {
+  constructor (props) {
+    super (props);
+    this.state = {
+      visible: false,
+      writerID: null,
+      userEmail: null,
+      userName: null,
+    };
+  }
   componentDidMount () {
     const options = {
       inDuration: 250,
@@ -13,7 +26,7 @@ class Request extends Component {
     };
     document.addEventListener ('DOMContentLoaded', function () {
       var elems = document.querySelectorAll ('select');
-      var instances = M.FormSelect.init (elems, options);
+      // var instances = M.FormSelect.init (elems, options);
     });
   }
 
@@ -22,6 +35,9 @@ class Request extends Component {
       var id = this.props.auth._id;
     }
 
+    this.props.posts.sort (function (a, b) {
+      return new Date (b.date) - new Date (a.date);
+    });
     return (
       <div>
         {this.props.posts.map ((item, i) => (
@@ -34,7 +50,7 @@ class Request extends Component {
             postID={item._id}
             userID={id}
             postOwner={item.userID}
-            sendEmail={() => axios.post ('/api/sendEmail', {post: item.text})}
+            sendEmail={() => this.show (item.userID)}
           >
             Test
           </Card>
@@ -42,31 +58,51 @@ class Request extends Component {
       </div>
     );
   }
-
+  show (id) {
+    this.setState ({
+      visible: true,
+      writerID: id,
+      userEmail: this.props.auth.emails[0],
+      userName: this.props.auth.name,
+    });
+  }
+  async sendEmail () {
+    const text = document.getElementById ('textarea2').value;
+    const res = await axios.post ('/api/sendEmail', {
+      writerID: this.state.writerID,
+      userEmail: this.state.userEmail,
+      userName: this.state.userName,
+      text: text,
+    });
+    console.log (res);
+    this.hide ();
+  }
+  hide () {
+    this.setState ({
+      visible: false,
+      writerID: null,
+      userEmail: null,
+      userName: null,
+    });
+  }
+  //{() => axios.post ('/api/sendEmail', {post: item.text})}
   render () {
     return (
       <div>
 
         <form>
 
-          <div className="row">
-            <div className="input-field col s7 offset-s1">
+          <div className="row" style={{marginTop:"100px"}}>
+            <div className="input-field col s8 offset-s1">
               <textarea id="textarea1" className="materialize-textarea " />
               <label>New Post</label>
             </div>
-            <div className="input-field col s3">
-              <select id="select">
-                <option value="Choose your location" disabled selected>
-                  Choose your location
-                </option>
-                <option value="New Cairo">New Cairo</option>
-                <option value="Nasr City">Nasr City</option>
-                <option value="Ma'adi">Ma'adi</option>
-                <option value="heliopolis">heliopolis</option>
-                <option value="October">October</option>
-                <option value="Down Town">Down Town</option>
-              </select>
-              <label>Location</label>
+            <div className="col s3 test">
+              <Select
+                id="select"
+                action={() => null}
+                label="Select your location"
+              />
             </div>
           </div>
 
@@ -81,32 +117,58 @@ class Request extends Component {
           Submit
           <i className="material-icons right">send</i>
         </button>
-        <div className="row">
-          <div className="input-field col s3 offset-s5">
-            <select onChange={() => this.props.filterPosts ()} id="filter">
-              <option value="" disabled selected>Filter by location</option>
-              <option value="New Cairo">New Cairo</option>
-              <option value="Nasr City">Nasr City</option>
-              <option value="Ma'adi">Ma'adi</option>
-              <option value="heliopolis">heliopolis</option>
-              <option value="October">October</option>
-              <option value="Down Town">Down Town</option>
-            </select>
-            <label>Location</label>
-          </div>
-          <div className="col s2 offset-s7">
-            <button
-              className="btn right waves-effect waves-light red custom-btn"
-              type="submit"
-              name="action"
-              onClick={() => this.props.yourPosts()}
-            >
-              Your Posts
-            </button>
-          </div>
-        </div>
 
-        {this.renderPosts ()}
+        <div>
+          <div className="row" style={{marginTop:"120px"}}>
+            <div className="col s3 offset-s1  ">
+
+              <Button
+                node="button"
+                waves="light"
+                type="submit"
+                name="action"
+                id="filter-btn"
+                onClick={() => this.props.yourPosts ()}
+              >
+                button
+              </Button>
+
+            </div>
+            <div className="col s3 offset-s5">
+
+              <Select
+                id="filter"
+                action={() => this.props.filterPosts ()}
+                label="Filter by location"
+              />
+
+            </div>
+
+          </div>
+          {this.renderPosts ()}
+        </div>
+        <Rodal
+          enterAnimation="slideUp"
+          leaveAnimation="slideDown"
+          width={350}
+          visible={this.state.visible}
+          onClose={() => this.hide ()}
+        >
+          <div>
+            <div className="input-field" style={{marginTop: '75px'}}>
+
+              <textarea id="textarea2" className="materialize-textarea " />
+              <label>Send Mail</label>
+            </div>
+            <a
+              onClick={() => this.sendEmail ()}
+              class="waves-effect waves-light btn right"
+            >
+              Send
+            </a>
+
+          </div>
+        </Rodal>
       </div>
     );
   }

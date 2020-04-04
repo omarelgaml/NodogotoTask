@@ -12,6 +12,7 @@ require ('./models/User');
 require ('./models/ElderlyRequest');
 require ('./models/EmployeeRequest');
 require ('./models/OfferRequest');
+require ('./models/Wish');
 
 require ('./services/passport');
 
@@ -32,6 +33,7 @@ require ('./routes/elderlyRoutes') (app);
 require ('./routes/employeeRoutes') (app);
 require ('./routes/offerRoutes') (app);
 require ('./routes/emailRoutes') (app);
+require ('./routes/wishListRoutes') (app);
 
 
 if (process.env.NODE_ENV === 'production') {

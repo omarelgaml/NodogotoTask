@@ -39,18 +39,17 @@ module.exports = app => {
   });
 
   app.delete ('/api/deletePost', requireLogin, async (req, res) => {
-      const deleted = await Requet.deleteOne({_id:req.body.id});
-      console.log(deleted);
-      Requet.find ({}, function (err, reqs) {
-        var map = [];
-  
-        reqs.forEach (function (request) {
-          map.push (request);
-        });
-        res.send (map);
-      });
-  });
+    const deleted = await Requet.deleteOne ({_id: req.body.id});
+    console.log (deleted);
+    Requet.find ({}, function (err, reqs) {
+      var map = [];
 
+      reqs.forEach (function (request) {
+        map.push (request);
+      });
+      res.send (map);
+    });
+  });
 
   app.post ('/api/elderlyUser', requireLogin, async (req, res) => {
     Requet.find ({}, function (err, reqs) {
@@ -61,5 +60,5 @@ module.exports = app => {
       });
       res.send (map);
     });
-});
+  });
 };

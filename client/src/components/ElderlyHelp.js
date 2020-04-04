@@ -10,10 +10,12 @@ class ElderlyHelp extends Component {
     this.state = {
       posts: [],
       filter: null,
+      currentPage: null,
     };
   }
 
   async componentDidMount () {
+    const page = window.location.pathname.split ('/');
     const options = {
       inDuration: 250,
       outDuration: 200,
@@ -23,25 +25,43 @@ class ElderlyHelp extends Component {
       var elems = document.querySelectorAll ('select');
       var instances = M.FormSelect.init (elems, options);
     });
-
-    const res = await axios.get ('/api/getElderlyRequests');
+    if (page[page.length - 1] === 'elderly') {
+      var route = '/api/getElderlyRequests';
+    }
+    if (page[page.length - 1] === 'offers') {
+      var route = '/api/getOfferRequests';
+    }
+    if (page[page.length - 1] === 'employee') {
+      var route = '/api/getEmployeeRequests';
+    }
+    const res = await axios.get (route);
     this.setState ({
       posts: res.data,
+      currentPage: page[page.length - 1],
     });
   }
   async submitPost () {
+    if (this.state.currentPage === 'elderly') {
+      var route = '/api/elderlyRequest';
+    }
+    if (this.state.currentPage === 'offers') {
+      var route = '/api/offerRequest';
+    }
+    if (this.state.currentPage === 'employee') {
+      var route = '/api/employeeRequest';
+    }
     const elem = document.getElementById ('select');
-    const loc = elem.options[elem.selectedIndex].value;
-    const t = document.getElementById ('textarea1').value;
-    const d = new Date ();
-    if (loc && t) {
-      const res = await axios.post ('/api/elderlyRequest', {
-        location: loc,
-        text: t,
+    const location = elem.options[elem.selectedIndex].value;
+    const text = document.getElementById ('textarea1').value;
+    const date = new Date ();
+    if (location && text) {
+      const res = await axios.post (route, {
+        location: location,
+        text: text,
         name: this.props.auth.name,
         emails: this.props.auth.emails,
-        date: d,
-        userID:this.props.auth._id
+        date: date,
+        userID: this.props.auth._id,
       });
       this.componentDidMount ();
       document.getElementById ('textarea1').value = '';
@@ -52,9 +72,18 @@ class ElderlyHelp extends Component {
   }
 
   async filterPosts () {
+    if (this.state.currentPage === 'elderly') {
+      var route = '/api/filterElderlyRequests';
+    }
+    if (this.state.currentPage === 'offers') {
+      var route = '/api/filterOfferRequests';
+    }
+    if (this.state.currentPage === 'employee') {
+      var route = '/api/filterEmployeeRequests';
+    }
     const elem = document.getElementById ('filter');
     const location = elem.options[elem.selectedIndex].value;
-    const posts = await axios.post ('/api/filterElderlyRequests', {
+    const posts = await axios.post (route, {
       location: location,
     });
     this.setState ({
@@ -63,7 +92,16 @@ class ElderlyHelp extends Component {
   }
 
   async yourPosts () {
-    const posts = await axios.post ('/api/elderlyUser', {
+    if (this.state.currentPage === 'elderly') {
+      var route = '/api/elderlyUser';
+    }
+    if (this.state.currentPage === 'offers') {
+      var route = '/api/offerUser';
+    }
+    if (this.state.currentPage === 'employee') {
+      var route = '/api/employeeUser';
+    }
+    const posts = await axios.post (route, {
       id: this.props.auth._id,
     });
     this.setState ({
@@ -76,9 +114,9 @@ class ElderlyHelp extends Component {
         <Request
           posts={this.state.posts}
           submitPost={() => this.submitPost ()}
-          filterPosts={()=>this.filterPosts()}
-          deletePost={(post)=>this.deletePost(post)}
-          yourPosts={()=>this.yourPosts()}
+          filterPosts={() => this.filterPosts ()}
+          deletePost={post => this.deletePost (post)}
+          yourPosts={() => this.yourPosts ()}
         />
       </div>
     );
@@ -90,8 +128,3 @@ function mapStateToProps (state) {
 }
 
 export default connect (mapStateToProps) (ElderlyHelp);
-
-/*
-sort (function (a, b) {
-      return new Date (b.date) - new Date (a.date);
-    });*/
