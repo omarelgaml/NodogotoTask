@@ -7,6 +7,7 @@ import Landing from './Landing';
 import Help from './Help';
 import WishList from './WishList';
 import '../App.css';
+import { Lines } from 'react-preloaders';
 
 class App extends Component {
   componentDidMount () {
@@ -15,6 +16,7 @@ class App extends Component {
 
   render () {
     return (
+      <React.Fragment>
       <div className="container">
         <BrowserRouter>
           <div>
@@ -28,6 +30,9 @@ class App extends Component {
           </div>
         </BrowserRouter>
       </div>
+      <Lines/>
+
+      </React.Fragment>
     );
   }
 }

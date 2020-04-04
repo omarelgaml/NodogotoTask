@@ -89,7 +89,6 @@ class Request extends Component {
   }
   //{() => axios.post ('/api/sendEmail', {post: item.text})}
   render () {
-    console.log (this.state.permission);
     return (
       <div>
         {this.state.permission &&
