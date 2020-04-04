@@ -1,75 +1,87 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../actions';
 import axios from 'axios';
-import Card from './Card'
+import {Slider,Slide,Caption} from 'react-materialize';
+
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 class Landing extends Component {
-  async eldAdd () {
-    const res = await axios.post ('/api/elderlyRequest', {
-      text: 'hii',
-      location: 'test',
-    });
-  }
-  async eldGet () {
-    const res = await axios.get ('/api/getElderlyRequests');
-    console.log (res.data);
-  }
-  async eldFilter () {
-    const res = await axios.post ('/api/filterElderlyRequests', {
-      location: 'test',
-    });
-    console.log (res.data);
-  }
-
-
-  async offerAdd () {
-    const res = await axios.post ('/api/offerRequest', {
-      text: 'hii',
-      location: 'bye',
-    });
-  }
-  async offerGet () {
-    const res = await axios.get ('/api/getOfferRequests');
-    console.log (res.data);
-  }
-  async offerFilter () {
-    const res = await axios.post ('/api/filterOfferRequests', {
-      location: 'test',
-    });
-    console.log (res.data);
-  }
-
-
-
-
-  async empFilter () {
-    const res = await axios.post ('/api/filterEmployeeRequests', {
-      location: 'test',
-    });
-    console.log (res.data);
-  }
-  async empAdd () {
-    const res = await axios.post ('/api/employeeRequest', {
-      text: 'yesss',
-      location: 'test',
-    });
-  }
-  async empGet () {
-    const res = await axios.get ('/api/getEmployeeRequests');
-    console.log (res.data);
+  constructor (props) {
+    super (props);
+    this.state = {
+      value: null,
+      open: false,
+    };
   }
 
   render () {
     return (
-      <div >
-
-        <button onClick={() => this.empGet ()}>Test</button>
-        <button onClick={() => this.offerGet ()}>Test2</button>
-        <button onClick={() => this.offerFilter ()}>Test3</button>
-        <Card />
+      <div className="landing">
+        <Slider
+          fullscreen={false}
+          options={{
+            duration: 500,
+            height: 400,
+            indicators: true,
+            interval: 6000,
+          }}
+        >
+          <Slide
+            image={<img alt="" src="http://lorempixel.com/780/580/nature/1" />}
+          >
+            <Caption placement="center">
+              <h3>
+                This is our big Tagline!
+              </h3>
+              <h5 className="light grey-text text-lighten-3">
+                Here's our small slogan.
+              </h5>
+            </Caption>
+          </Slide>
+          <Slide
+            image={<img alt="" src="http://lorempixel.com/780/580/nature/2" />}
+          >
+            <Caption placement="left">
+              <h3>
+                Left Aligned Caption
+              </h3>
+              <h5 className="light grey-text text-lighten-3">
+                Here's our small slogan.
+              </h5>
+            </Caption>
+          </Slide>
+          <Slide
+            image={<img alt="" src="https://lorempixel.com/780/580/nature/3" />}
+          >
+            <Caption placement="right">
+              <h3>
+                Right Aligned Caption
+              </h3>
+              <h5 className="light grey-text text-lighten-3">
+                Here's our small slogan.
+              </h5>
+            </Caption>
+          </Slide>
+          <Slide
+            image={<img alt="" src="https://lorempixel.com/580/250/nature/4" />}
+          >
+            <Caption placement="center">
+              <h3>
+                This is our big Tagline!
+              </h3>
+              <h5 className="light grey-text text-lighten-3">
+                Here's our small slogan.
+              </h5>
+            </Caption>
+          </Slide>
+        </Slider>
       </div>
     );
   }
 }
 
-export default connect (null, actions) (Landing);
+function mapStateToProps (state) {
+  return {auth: state.auth};
+}
+
+export default connect (mapStateToProps) (Landing);

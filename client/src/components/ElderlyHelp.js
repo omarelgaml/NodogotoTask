@@ -4,6 +4,10 @@ import '../App.css';
 import M from 'materialize-css';
 import {connect} from 'react-redux';
 import Request from './Request';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+import {confirmAlert} from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css';
 class ElderlyHelp extends Component {
   constructor (props) {
     super (props);
@@ -13,7 +17,39 @@ class ElderlyHelp extends Component {
       currentPage: null,
     };
   }
-
+  async submit () {
+    const elem = document.getElementById ('select');
+    const location = elem.options[elem.selectedIndex].value;
+    const text = document.getElementById ('textarea1').value;
+    if (location && text) {
+      confirmAlert ({
+        title: 'Confirm to submit',
+        message: 'Do you want to mention your name?',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => this.submitPost (this.props.auth.name),
+          },
+          {
+            label: 'No',
+            onClick: () => this.submitPost ('Anonymous'),
+          },
+        ],
+      });
+    } else {
+      this.createNotification ('error');
+    }
+  }
+  createNotification = type => {
+    if (type === 'error')
+      NotificationManager.error (
+        'Please enter text and location',
+        'Error',
+        2500
+      );
+    else
+      NotificationManager.success ('Post added successfully', 'Success', 2500);
+  };
   async componentDidMount () {
     const page = window.location.pathname.split ('/');
     const options = {
@@ -40,7 +76,7 @@ class ElderlyHelp extends Component {
       currentPage: page[page.length - 1],
     });
   }
-  async submitPost () {
+  async submitPost (name) {
     if (this.state.currentPage === 'elderly') {
       var route = '/api/elderlyRequest';
     }
@@ -54,21 +90,18 @@ class ElderlyHelp extends Component {
     const location = elem.options[elem.selectedIndex].value;
     const text = document.getElementById ('textarea1').value;
     const date = new Date ();
-    if (location && text) {
-      const res = await axios.post (route, {
-        location: location,
-        text: text,
-        name: this.props.auth.name,
-        emails: this.props.auth.emails,
-        date: date,
-        userID: this.props.auth._id,
-      });
-      this.componentDidMount ();
-      document.getElementById ('textarea1').value = '';
-      console.log (res);
-    } else {
-      alert ('Please enter text and location');
-    }
+    const res = await axios.post (route, {
+      location: location,
+      text: text,
+      name: name,
+      emails: this.props.auth.emails,
+      date: date,
+      userID: this.props.auth._id,
+    });
+    this.componentDidMount ();
+    document.getElementById ('textarea1').value = '';
+    this.createNotification ('success');
+    console.log (res);
   }
 
   async filterPosts () {
@@ -108,12 +141,33 @@ class ElderlyHelp extends Component {
       posts: posts.data,
     });
   }
+  permissions = () => {
+    const page = window.location.pathname.split ('/');
+    const currentPage = page[page.length - 1];
+    if (currentPage === 'elderly') {
+      if (this.props.auth && this.props.auth.type === 'elderly') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    if (currentPage === 'employee') {
+      if (this.props.auth && this.props.auth.type === 'elderly') {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    return true;
+  };
   render () {
     return (
       <div>
+        <NotificationContainer />
         <Request
+          permission={() => this.permissions ()}
           posts={this.state.posts}
-          submitPost={() => this.submitPost ()}
+          submitPost={() => this.submit ()}
           filterPosts={() => this.filterPosts ()}
           deletePost={post => this.deletePost (post)}
           yourPosts={() => this.yourPosts ()}

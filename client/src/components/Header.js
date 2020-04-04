@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import M from 'materialize-css';
 
 class Header extends Component {
-
   componentDidMount () {
     const options = {
       inDuration: 250,
@@ -18,7 +17,6 @@ class Header extends Component {
   }
   renderContect () {
     switch (this.props.auth) {
-     
       case null:
         return;
       case false:
@@ -28,43 +26,61 @@ class Header extends Component {
         return [<li key="2"><a href="/api/logout">Logout</a></li>];
     }
   }
-  saveID(){
-    localStorage.setItem("id", this.props.auth._id);
+  saveID () {
+    localStorage.setItem ('id', this.props.auth._id);
   }
   render () {
     return (
       <div>
 
-        <nav  style={{padding:"0px 5px"}}>
+        <nav className="black" style={{padding: '0px 5px'}}>
           <div className="nav-wrapper">
-            <Link
-              to={'/'}
-              className="brand-logo"
-            >
+            <Link to={this.props.auth ? 'home' : '/'} className="brand-logo">
               Quarantine Buddy
             </Link>
-            {' '}{' '}
             <a href="#" data-target="mobile-demo" className="sidenav-trigger">
               <i className="material-icons">menu</i>
             </a>
-            <ul className="right">
-              {this.renderContect ()}
-            </ul>
             <ul className="right hide-on-med-and-down">
-              <li><Link to='/elderly'>Elderly help</Link></li>
-              <li><a href="/employee">Employees help</a></li>
-              <li><a href="/offers">Offering help</a></li>
-              <li><a onClick={()=>this.saveID()} href="/wishlist">Wishlist</a></li>
-            </ul>
+                {this.renderContect ()}
+              </ul>
+            <ul className="right hide-on-med-and-down">
 
+
+              {this.props.auth &&
+                <div>
+                  <li><Link to="/elderly">Elderly help</Link></li>
+                  <li><Link to="/employee">Employees help</Link></li>
+                  <li><Link to="/offers">Offering help</Link></li>
+                  <li>
+                    <Link onClick={() => this.saveID ()} to="/wishlist">
+                      Wishlist
+                    </Link>
+                  </li>
+                </div>}
+
+            </ul>
           </div>
         </nav>
 
         <ul className="sidenav" id="mobile-demo">
-          <li><Link to='/elderly'>Elderly help</Link></li>
-          <li><a href="/employee">Employees help</a></li>
-          <li><a href="/offers">Offering help</a></li>
-          <li><a href="/wishlist">Wishlist</a></li>
+
+          <div>
+            {this.renderContect ()}
+          </div>
+          {this.props.auth &&
+            <div>
+
+              <li><Link to="/elderly">Elderly help </Link></li>
+              <li><Link to="/employee">Employees help</Link></li>
+              <li><Link to="/offers">Offering help</Link></li>
+              <li>
+                <Link onClick={() => this.saveID ()} to="/wishlist">
+                  Wishlist
+                </Link>
+              </li>
+
+            </div>}
         </ul>
       </div>
     );

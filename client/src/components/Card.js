@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import '../App.css';
 import axios from 'axios';
+import {Button} from 'react-materialize';
+import '../App.css';
 
 
 class Card extends Component {
@@ -29,7 +31,7 @@ class Card extends Component {
     return (
       <div className="row custom-card ">
         <div className="col s10  offset-s1">
-          <div className="card blue-grey darken-1">
+          <div className="card black">
             <div className="card-content white-text">
               <span className="card-title">
                 {this.props.name}, {this.props.location}
@@ -38,7 +40,7 @@ class Card extends Component {
             </div>
             <div className="card-action">
               { this.props.userID===this.props.postOwner || this.props.wish ?
-              <a className="right" onClick={()=>this.deletePost(this.props.postID)}>Delete</a>
+              <Button className="right" onClick={()=>this.deletePost(this.props.postID)}>Delete</Button>
               :
               <a className="right" onClick={this.props.sendEmail}>Contcat</a>
 

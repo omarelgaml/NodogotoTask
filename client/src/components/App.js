@@ -6,6 +6,8 @@ import Header from './Header';
 import Landing from './Landing';
 import Elderly from './ElderlyHelp';
 import WishList from './WishList';
+import Home from './Home';
+import '../App.css';
 
 class App extends Component {
   componentDidMount () {
@@ -18,14 +20,16 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            <Route exact path="/" component={Landing} />
+            <Route
+              exact
+              path="/"
+              component={this.props.auth ? Home : Landing}
+            />
+            <Route exact path="/home" component={Home} />
             <Route exact path="/elderly" component={Elderly} />
             <Route exact path="/offers" component={Elderly} />
             <Route exact path="/employee" component={Elderly} />
             <Route exact path="/wishList" component={WishList} />
-
-
-
 
           </div>
         </BrowserRouter>
@@ -34,4 +38,7 @@ class App extends Component {
   }
 }
 
-export default connect (null, actions) (App);
+function mapStateToProps (state) {
+  return {auth: state.auth};
+}
+export default connect (mapStateToProps, actions) (App);

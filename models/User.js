@@ -9,6 +9,7 @@ const userSchema = new Schema ({
       type: String,
     },
   ],
+  type: String,
 });
 
 //mongoose.model(<name whcih we want to use>,<the name of the create schema>)

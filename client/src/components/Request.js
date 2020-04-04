@@ -16,9 +16,11 @@ class Request extends Component {
       writerID: null,
       userEmail: null,
       userName: null,
+      permission:this.props.permission()
     };
   }
   componentDidMount () {
+    
     const options = {
       inDuration: 250,
       outDuration: 200,
@@ -87,53 +89,55 @@ class Request extends Component {
   }
   //{() => axios.post ('/api/sendEmail', {post: item.text})}
   render () {
+    console.log(this.state.permission)
     return (
       <div>
+        {this.state.permission &&
+          <form>
 
-        <form>
-
-          <div className="row" style={{marginTop:"100px"}}>
-            <div className="input-field col s8 offset-s1">
-              <textarea id="textarea1" className="materialize-textarea " />
-              <label>New Post</label>
+            <div className="row" style={{marginTop: '100px'}}>
+              <div className="input-field col s8 offset-s1">
+                <textarea id="textarea1" className="materialize-textarea " />
+                <label>New Post</label>
+              </div>
+              <div className="col s3 test">
+                <Select
+                  id="select"
+                  action={() => null}
+                  label="Select your location"
+                />
+              </div>
             </div>
-            <div className="col s3 test">
-              <Select
-                id="select"
-                action={() => null}
-                label="Select your location"
-              />
-            </div>
-          </div>
 
-        </form>
-
-        <button
-          className="btn right waves-effect waves-light red custom-btn"
-          type="submit"
-          name="action"
-          onClick={() => this.props.submitPost ()}
-        >
-          Submit
-          <i className="material-icons right">send</i>
-        </button>
-
+          </form>}
+        {this.state.permission &&
+          <button
+            className="btn right waves-effect waves-light red custom-btn"
+            type="submit"
+            name="action"
+            onClick={() => this.props.submitPost ()}
+          >
+            Submit
+            <i className="material-icons right">send</i>
+          </button>}
         <div>
-          <div className="row" style={{marginTop:"120px"}}>
-            <div className="col s3 offset-s1  ">
 
-              <Button
-                node="button"
-                waves="light"
-                type="submit"
-                name="action"
-                id="filter-btn"
-                onClick={() => this.props.yourPosts ()}
-              >
-                button
-              </Button>
+          <div className="row" style={{marginTop: '120px'}}>
+            <div className="col s3 offset-s1  ">
+              {this.state.permission &&
+                <Button
+                  node="button"
+                  waves="light"
+                  type="submit"
+                  name="action"
+                  id="filter-btn"
+                  onClick={() => this.props.yourPosts ()}
+                >
+                  button
+                </Button>}
 
             </div>
+
             <div className="col s3 offset-s5">
 
               <Select

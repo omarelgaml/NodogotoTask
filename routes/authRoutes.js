@@ -1,6 +1,17 @@
 const passport = require ('passport');
+const mongoose = require ('mongoose');
+const requireLogin = require ('../middlewares/requireLogin');
 
+const User = mongoose.model ('users');
 module.exports = app => {
+  app.put ('/api/updateUser', requireLogin, async (req, res) => {
+    const newUser = req.body.user;
+
+    newUser.type = req.body.type;
+    const user = await User.findByIdAndUpdate (newUser._id, newUser);
+    res.send (user);
+  });
+
   app.get (
     '/auth/google',
     passport.authenticate ('google', {
@@ -12,7 +23,7 @@ module.exports = app => {
     '/auth/google/callback',
     passport.authenticate ('google'),
     (req, res) => {
-      res.redirect ('/landing');
+      res.redirect ('/home');
     }
   );
   app.get ('/api/current_user', (req, res) => {
